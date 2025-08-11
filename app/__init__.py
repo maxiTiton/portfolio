@@ -9,16 +9,11 @@ def create_app():
 
     # Configuración de la aplicación
     app.config.from_mapping(
-        SENDGRID_KEY=os.environ.get('SENDGRID_KEY'),  # Ahora sí va a leer la variable del .env
+        SENDGRID_KEY=os.environ.get('SENDGRID_KEY'),
     )
 
-    from . import portfolio
+    # Cambiar import relativo por import absoluto
+    from app import portfolio
     app.register_blueprint(portfolio.bp)
 
     return app
-
-# Para deployment en producción
-app = create_app()
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=False)
